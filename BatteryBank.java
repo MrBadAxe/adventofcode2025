@@ -7,16 +7,22 @@ public class BatteryBank{
         batteries = str;
     }
 
-    public int calculateMaxJoltage(){
-        int maxJoltage = 0;
-        for(int k=0;k<BATT_COUNT-1;k++){
-            for(int j=k+1;j<BATT_COUNT;j++){
-                int joltage = batteries[k] * 10 + batteries[j];
-                maxJoltage = java.lang.Math.max(maxJoltage,joltage);
-            }
+    public long calculateMaxJoltage(int maxCount){
+        java.util.ArrayList<Integer> joltages = new java.util.ArrayList<>();
+        String[] cells = batteries.split("");
+        for(String cell : cells){
+            joltages.add(Integer.parseInt(cell));
         }
-        return maxJoltage;
-    }
+        int index = 0;
+        while(joltages.size() > maxCount){
+            if(index == joltages.size() - 1 || joltages.get(index) < joltages.get(index+1)){
+                joltages.remove(index);
+                index = 0;
+            }else{
+                index++;
+            }
+            //System.out.println(joltages);
+        }
 
         String z = "";
         for(Integer j : joltages){
