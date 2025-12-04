@@ -5,13 +5,20 @@ public class Day03{
         long totalJoltage = 0;
         for(String str : input){
             BatteryBank bank = new BatteryBank(str);
-            int bankJoltage = bank.calculateMaxJoltage();
+            long bankJoltage = bank.calculateMaxJoltage(2);
             System.out.println(bank.toString() + " " + bankJoltage);
             totalJoltage += bankJoltage;
         }
         return Long.toString(totalJoltage);
     }
     public static String getPart02(List<String> input){
-        return "";
+        long totalJoltage = 0;
+        for(String str : input){
+            BatteryBank bank = new BatteryBank(str);
+            long bankJoltage = bank.calculateMaxJoltage(12);
+            System.out.println(bank.toString() + " " + bankJoltage);
+            totalJoltage += bankJoltage;
+        }
+        return Long.toString(totalJoltage);
     }
 }
