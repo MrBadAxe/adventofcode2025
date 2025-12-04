@@ -1,20 +1,10 @@
 
 
 public class BatteryBank{
-    private final int BATT_COUNT;
-    private final int[] batteries;
-
-    public static int[] parseBatteryBank(String str){
-        int[] z = new int[str.length()];
-        for(int k=0;k<z.length;k++){
-            z[k] = str.charAt(k) - '0';
-        }
-        return z;
-    }
+    private final String batteries;
 
     public BatteryBank(String str){
-        BATT_COUNT = str.length();
-        batteries = parseBatteryBank(str);
+        batteries = str;
     }
 
     public int calculateMaxJoltage(){
@@ -28,11 +18,14 @@ public class BatteryBank{
         return maxJoltage;
     }
 
-    public String toString(){
         String z = "";
-        for(int k=0;k<BATT_COUNT;k++){
-            z += batteries[k];
+        for(Integer j : joltages){
+            z += Integer.toString(j);
         }
-        return z;
+        return Long.parseLong(z);
+    }
+
+    public String toString(){
+        return this.batteries;
     }
 }
