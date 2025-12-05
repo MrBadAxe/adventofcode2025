@@ -19,7 +19,6 @@ public class PaperRollGrid extends CharGrid{
                         }
                     }
                     if(filled < 4){
-                        System.out.println(cell);
                         totalRolls.add(cell);
                     }
                 }

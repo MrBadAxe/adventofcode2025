@@ -13,13 +13,11 @@ public class Day04{
     }
     public static String getPart01(List<String> input){
         PaperRollGrid grid = generatePaperRollGrid(input);
-        System.out.println(grid);
         return Integer.toString(grid.findMovableRolls().size());
     }
     public static String getPart02(List<String> input){
         int totalMovable = 0;
         PaperRollGrid grid = generatePaperRollGrid(input);
-        System.out.println(grid);
         while(grid.findMovableRolls().size() > 0){
             totalMovable += grid.findMovableRolls().size();
             grid = grid.moveRolls(grid.findMovableRolls());
