@@ -28,6 +28,36 @@ public class Day07{
         return Integer.toString(splitCount);
     }
     public static String getPart02(List<String> input){
-        return "";
+        int width = input.get(0).length();
+        long[] beams = new long[width];
+        for(int k=0;k<width;k++){
+            beams[k] = 0;
+        }
+        for(String str : input){
+            long[] newBeams = new long[width];
+            for(int k=0;k<width;k++){
+                newBeams[k] = 0;
+            }
+            for(int k=0;k<str.length();k++){
+                switch(str.charAt(k)){
+                    case 'S':
+                        newBeams[k]++;
+                        break;
+                    case '^':
+                        newBeams[k+1] += beams[k];
+                        newBeams[k-1] += beams[k];
+                        break;
+                    case '.':
+                    default:
+                        newBeams[k] += beams[k];
+                }
+            }
+            beams = newBeams;
+        }
+        long totalBeams = 0;
+        for(int k=0;k<width;k++){
+            totalBeams += beams[k];
+        }        
+        return Long.toString(totalBeams);
     }
 }
