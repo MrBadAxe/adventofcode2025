@@ -1,7 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeSet;
-import java.util.HashMap;
 
 public class Day08{
     public static ArrayList<Point3D> generatePointList(List<String> input){
@@ -34,51 +33,12 @@ public class Day08{
         return z;
     }
 
-    public static HashMap<Point3D,Integer> generateCircuitMap(ArrayList<StringLight> stringLights){
-        HashMap<Point3D,Integer> circuits = new HashMap<>();
-        int nextNewGroup = 0;
+    public static CircuitMap generateCircuitMap(ArrayList<StringLight> stringLights){
+        CircuitMap circuits = new CircuitMap();
         for(StringLight sl : stringLights){
-            //System.out.println(sl.toString());
-            Point3D a = sl.getA();
-            Point3D b = sl.getB();
-            if(circuits.containsKey(a) && circuits.containsKey(b)){
-                if(circuits.get(a) != circuits.get(b)){
-                    int src = circuits.get(b);
-                    int dest = circuits.get(a);
-                    //System.out.println(src + "->" + dest);
-                    for(Point3D key : circuits.keySet()){
-                        if(circuits.get(key) == src){
-                            //System.out.println(key.toString());
-                            circuits.put(key,dest);
-                        }
-                    }
-                }
-            }else if(circuits.containsKey(a) && !circuits.containsKey(b)){
-                circuits.put(b,circuits.get(a));
-            }else if(!circuits.containsKey(a) && circuits.containsKey(b)){
-                circuits.put(a,circuits.get(b));
-            }else{
-                circuits.put(a,nextNewGroup);
-                circuits.put(b,nextNewGroup);
-                nextNewGroup++;
-            }
-            //System.out.println(circuits.toString());
+            circuits.connect(sl);
         }
         return circuits;
-    }
-    public static int[] calculateCircuitSizes(HashMap<Point3D,Integer> circuitMap){
-        int circuitMax = 0;
-        for(Point3D key : circuitMap.keySet()){
-            circuitMax = Math.max(circuitMax,circuitMap.get(key));
-        }
-        int[] circuitSizes = new int[circuitMax+1];
-        for(int k=0;k<circuitMax;k++){
-            circuitSizes[k] = 0;
-        }
-        for(Point3D key : circuitMap.keySet()){
-            circuitSizes[circuitMap.get(key)]++;
-        }
-        return circuitSizes;
     }
 
     public static long top3Product(int[] operands){
@@ -102,8 +62,8 @@ public class Day08{
         ArrayList<Point3D> pointList = generatePointList(input);
         TreeSet<StringLight> stringLights = generateStringLightList(pointList);
         ArrayList<StringLight> shortest = findNShortest(stringLights, SHORTEST_COUNT);
-        HashMap<Point3D,Integer> groups = generateCircuitMap(shortest);
-        int[] groupSizes = calculateCircuitSizes(groups);
+        CircuitMap groups = generateCircuitMap(shortest);
+        int[] groupSizes = groups.calculateCircuitSizes();
         /*for(int k=0;k<groupSizes.length;k++){
             System.out.print(groupSizes[k] + ", ");pr
         }*/
