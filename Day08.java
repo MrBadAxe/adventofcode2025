@@ -64,12 +64,19 @@ public class Day08{
         ArrayList<StringLight> shortest = findNShortest(stringLights, SHORTEST_COUNT);
         CircuitMap groups = generateCircuitMap(shortest);
         int[] groupSizes = groups.calculateCircuitSizes();
-        /*for(int k=0;k<groupSizes.length;k++){
-            System.out.print(groupSizes[k] + ", ");pr
-        }*/
         return Long.toString(top3Product(groupSizes));
     }
     public static String getPart02(List<String> input){
-        return "";
+        ArrayList<Point3D> pointList = generatePointList(input);
+        TreeSet<StringLight> stringLights = generateStringLightList(pointList);
+        ArrayList<StringLight> shortest = findNShortest(stringLights, stringLights.size());
+        CircuitMap map = new CircuitMap();
+        int index = 0;
+        for(index = 0; map.pointsCount() < pointList.size() || map.circuitCount() != 1 ; index++){
+            map.connect(shortest.get(index));
+        }
+        StringLight last = shortest.get(index-1);
+
+        return Long.toString(last.getA().getX() * last.getB().getX());
     }
 }
