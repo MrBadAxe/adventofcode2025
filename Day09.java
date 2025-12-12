@@ -29,6 +29,22 @@ public class Day09{
         }
         return Long.toString(maxArea);
     }
+    public static boolean checkRegion(TileFloor floor, HashMap<Long,Long> xCompr, HashMap<Long,Long> yCompr, Point a, Point b){
+        long xMin = xCompr.get(Math.min(a.getX(),b.getX()));
+        long xMax = xCompr.get(Math.max(a.getX(),b.getX()));
+        long yMin = yCompr.get(Math.min(a.getY(),b.getY()));
+        long yMax = yCompr.get(Math.max(a.getY(),b.getY()));
+        for(long row=xMin;row<=xMax;row++){
+            for(long col=yMin;col<yMax;col++){
+                char cell = floor.get((int)row,(int)col);
+                if( cell != TileFloor.RED && cell != TileFloor.GREEN){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
     public static String getPart02(List<String> input){
         return "";
     }

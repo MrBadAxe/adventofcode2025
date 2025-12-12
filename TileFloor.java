@@ -48,28 +48,16 @@ public class TileFloor extends CharGrid{
         q.add(start);
         while(q.size() > 0){
             Point next = q.removeFirst();
-            set((int)next.getX(),(int)next.getY(),GREEN);
-            ArrayList<Point> neighbors = next.getNeighbors();
-            for(Point p : neighbors){
-                if(get((int)p.getX(),(int)p.getY()) == EMPTY){
-                    q.add(p);
-                }
+            if(get((int)next.getX(),(int)next.getY()) == EMPTY){
+                set((int)next.getX(),(int)next.getY(),GREEN);
+                ArrayList<Point> neighbors = next.getNeighbors();
+                for(Point p : neighbors){
+                    if(get((int)p.getX(),(int)p.getY()) == EMPTY){
+                        q.add(p);
+                    }
+                    
+                }   
             }
         }
-    }
-
-    public boolean checkRegion(Point a, Point b){
-        long xMin = Math.min(a.getX(),b.getX());
-        long xMax = Math.max(a.getX(),b.getX());
-        long yMin = Math.min(a.getY(),b.getY());
-        long yMax = Math.max(a.getY(),b.getY());
-        for(long row=xMin;row<=xMax;row++){
-            for(long col=yMin;col<yMax;col++){
-                if(get((int)row,(int)col) != RED && get((int)row,(int)col) != GREEN){
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 }
