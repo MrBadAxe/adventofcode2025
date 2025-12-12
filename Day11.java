@@ -28,7 +28,6 @@ public class Day11{
             }else{
                 traces.addAll(map.get(curr));
             }
-            //System.out.println(traces);
         }
         return Long.toString(totalRoutes);
     }
@@ -39,9 +38,6 @@ public class Day11{
         
         long totalRoutes = 0;
         while(traces.size() > 0){
-            System.out.println(traces.size());
-            System.out.println(traces);
-
             HashMap<String,Long> newTraces = new HashMap<>();
             for(String src : traces.keySet()){
                 String name = src.substring(0,3);
@@ -49,7 +45,7 @@ public class Day11{
 
                 if(name.equals("dac")){ flags = flags | 0x1; }
                 if(name.equals("fft")){ flags = flags | 0x2; }
-                
+
                 for(String dest : map.get(name)){
                         String destFlag = dest + Integer.toString(flags);
                         if(!newTraces.containsKey(destFlag)){
@@ -59,8 +55,6 @@ public class Day11{
                 }
             }
 
-            System.out.println(newTraces);
-
             if(newTraces.containsKey("out3")){
                 totalRoutes += newTraces.get("out3");
             }
@@ -69,7 +63,6 @@ public class Day11{
             newTraces.remove("out2");
             newTraces.remove("out3");
 
-            //System.out.println(newTraces);
             traces = newTraces;
         }
         return Long.toString(totalRoutes);
