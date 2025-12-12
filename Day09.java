@@ -83,6 +83,42 @@ public class Day09{
     }
     
     public static String getPart02(List<String> input){
-        return "";
+        ArrayList<Point> points = generatePointsList(input);
+        ArrayList<Segment> segments = generateSegmentList(points);
+
+        HashMap<Long,Long> xCompr = compressCoords(getXcoords(points), 100000);
+        long xComprSize = 0;
+        for(long n : xCompr.keySet()){
+            xComprSize = Math.max(xComprSize,xCompr.get(n));
+        }
+
+        HashMap<Long,Long> yCompr = compressCoords(getYcoords(points), 100000);
+        long yComprSize = 0;
+        for(long n : yCompr.keySet()){
+            yComprSize = Math.max(yComprSize,yCompr.get(n));
+        }
+
+        TileFloor floor = new TileFloor((int)xComprSize, (int)yComprSize, '.');
+
+        for(Segment s : segments){
+            floor.set((xCompr.get(s.getA().getX()).intValue()),(yCompr.get(s.getA().getY()).intValue()),TileFloor.RED);
+            floor.set((xCompr.get(s.getB().getX()).intValue()),(yCompr.get(s.getB().getY()).intValue()),TileFloor.RED);
+            for(Point p : s.getMidPoints()){
+                floor.set((xCompr.get(p.getX()).intValue()),(yCompr.get(p.getY()).intValue()),TileFloor.GREEN);
+            }
+        }
+        floor.fill();
+        
+        long maxArea = 0;
+        for(int k=0;k<points.size()-1;k++){
+            for(int j=k+1;j<points.size();j++){
+                Point a = points.get(k);
+                Point b = points.get(j);
+                if(checkRegion(floor,xCompr,yCompr,a,b)){
+                    maxArea = Math.max(maxArea, area(a,b));
+                }
+            }
+        }
+        return Long.toString(maxArea);
     }
 }
