@@ -19,13 +19,13 @@ public class Day09{
     }
     public static String getPart01(List<String> input){
         ArrayList<Point> points = generatePointsList(input);
-        System.out.println(points);
+        //System.out.println(points);
         long maxArea = 0;
         for(int k=0;k<points.size()-1;k++){
             for(int j=k+1;j<points.size();j++){
                 Point a = points.get(k);
                 Point b = points.get(j);
-                System.out.println(a + "<->" + b + " = " + area(a,b));
+                //System.out.println(a + "<->" + b + " = " + area(a,b));
                 maxArea = Math.max(maxArea, area(a,b));
             }
         }
