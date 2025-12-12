@@ -34,4 +34,21 @@ public class Segment{
             return false;
         }
     }
+    public Point[] getMidPoints(){
+        Point[] z = new Point[1];
+        if(isHorizontalSegment()){
+            int count = (int)Math.abs(a.getY() - b.getY()) - 1;
+            z = new Point[count];
+            for(int k=0;k<count;k++){
+                z[k] = new Point(a.getX(), Math.min(a.getY(),b.getY())+k+1);
+            }
+        }else if(isVerticalSegment()){
+            int count = (int)Math.abs(a.getX() - b.getX()) - 1;
+            z = new Point[count];
+            for(int k=0;k<count;k++){
+                z[k] = new Point(Math.min(a.getX(),b.getX())+k+1, a.getY());
+            }
+        }
+        return z;
+    }
 }
