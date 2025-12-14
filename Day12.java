@@ -24,7 +24,7 @@ public class Day12{
         }*/
 
         int canFitCount = 0;
-        int inconclusive = 0;
+        //int inconclusive = 0;
         for(int spaceIndex = 30; spaceIndex < input.size(); spaceIndex++){
             String line = input.get(spaceIndex);
             String[] split1 = line.split(":");
@@ -54,7 +54,7 @@ public class Day12{
                 canFitCount++;
             }else if(totalPresentCells < regionCells){
                 //System.out.println("maybe?");
-                inconclusive++;
+                //inconclusive++;
                 /*
                  if we had more presents than there were 3x3 areas in the region,
                  but fewer total present cells than the total region cells,
